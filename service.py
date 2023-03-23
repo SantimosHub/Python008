@@ -8,16 +8,13 @@ def load_data(file_name: str) -> dict:
     return contacts
 
 
-def print_contacts(contacts: dict):
-    for count, key in enumerate(sorted(contacts)):
-        print(f"{count + 1}\t{key}\t{contacts[key]}")
-
-
 def find_contacts(contacts: dict, text: str):
+    result = {}
     for key in sorted(contacts):
         if key.lower().__contains__(text.lower()) \
                 or contacts[key].replace(" ", "").replace("-", "").__contains__(text.replace(" ", "").replace("-", "")):
-            print(f"{key}\t{contacts[key]}")
+            result[key] = contacts[key]
+    return result
 
 
 def add_data(file_name: str, name: str, number: str):
@@ -31,7 +28,6 @@ def edit_data(file_name: str, contacts: dict, text: str, new_text: str):
             contacts[new_text] = contacts.pop(key)
         elif contacts[key].replace(" ", "").replace("-", "").__contains__(text.replace(" ", "").replace("-", "")):
             contacts[key] = new_text
-    print(contacts)
     save_file(file_name, contacts)
 
 
